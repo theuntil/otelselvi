@@ -1,0 +1,39 @@
+<body class="page-<%= page.key %> lang-<%= lang %>">
+<a class="skip-link" href="#icerik"><%= t.ui.skip %></a>
+<header class="site-header" data-header>
+  <div class="wrap header-inner">
+    <a class="brand" href="<%= L.href('home') %>" aria-label="<%= t.ui.homeLabel %>">
+      <img class="brand-mark" src="/img/logo-mark.webp" width="166" height="180" alt="">
+      <span class="brand-text" translate="no">
+        <span class="brand-name">Otel Selvi</span>
+        <span class="brand-city">Karabük</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" id="site-nav" aria-label="<%= t.ui.mainNav %>" data-nav>
+      <ul class="nav-list">
+<% ['rooms', 'corporate', 'about', 'contact'].forEach(function (k) { -%>
+        <li><a href="<%= L.href(k) %>"<% if (pageKey === k && page.key !== '404') { %> aria-current="page"<% } %>><%= t.ui.nav[k] %></a></li>
+<% }) -%>
+      </ul>
+      <ul class="lang-switch" aria-label="<%= t.ui.languages %>">
+<% L.alternates(page.key === '404' ? 'home' : page.key).forEach(function (a) { -%>
+        <li><a href="<%= a.path %>" hreflang="<%= a.htmlLang %>" lang="<%= a.htmlLang %>" title="<%= a.label %>"<% if (a.current) { %> aria-current="true"<% } %>><span aria-hidden="true"><%= a.short %></span><span class="visually-hidden"><%= a.label %></span></a></li>
+<% }) -%>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-quiet btn-sm header-directions" href="<%= L.maps.directions %>" rel="noopener" target="_blank" title="<%= t.ui.directionsTitle %>">
+        <%- icon('pin') %><span class="btn-label"><span class="label-long"><%= t.ui.directions %></span><span class="label-short"><%= t.ui.directionsShort %></span></span>
+      </a>
+      <a class="btn btn-primary btn-sm header-reserve" href="tel:<%= site.phones[1].e164 %>" aria-label="<%= t.ui.reserve %>: <%= L.phoneText(site.phones[1]) %>" title="<%= L.phoneText(site.phones[1]) %>">
+        <%- icon('phone') %><span class="btn-label"><%= t.ui.reserve %></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="<%= t.ui.menu %>" data-nav-toggle data-label-open="<%= t.ui.menu %>" data-label-close="<%= t.ui.close %>">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="icerik" tabindex="-1">

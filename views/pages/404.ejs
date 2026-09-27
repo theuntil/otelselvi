@@ -1,0 +1,17 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="section not-found">
+  <div class="wrap not-found-inner">
+    <h1 class="display display--page"><%= t.notFound.h1 %></h1>
+    <p class="lead"><%= t.notFound.lead %></p>
+    <ul class="not-found-links" role="list">
+<% ['home', 'rooms', 'corporate', 'contact'].forEach(function (k) { -%>
+      <li><a href="<%= L.href(k) %>"><%= t.pages[k].name %></a></li>
+<% }) -%>
+      <li><a href="tel:<%= site.phones[0].e164 %>"><%= L.phoneText(site.phones[0]) %></a></li>
+    </ul>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

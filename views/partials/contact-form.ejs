@@ -1,0 +1,76 @@
+<form class="form" id="iletisim-formu" method="post" action="/form/iletisim" novalidate data-form
+      data-messages="<%= JSON.stringify(clientMessages.contact) %>"
+      data-summary="<%= t.form.summary %>" data-network="<%= t.form.network %>" data-unexpected="<%= t.form.unexpected %>"
+      data-sending="<%= t.form.sending %>" data-success-title="<%= t.form.successTitle %>">
+  <input type="hidden" name="_token" value="<%= tokens.contact %>">
+  <input type="hidden" name="lang" value="<%= lang %>">
+  <div class="hp" aria-hidden="true">
+    <label for="c-website"><%= t.form.honeypot %></label>
+    <input type="text" id="c-website" name="website" tabindex="-1" autocomplete="off">
+  </div>
+
+  <%- include('form-status') %>
+
+  <div class="form-grid">
+    <div class="field">
+      <label for="c-ad"><%= t.form.name %></label>
+      <input id="c-ad" name="ad" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="c-ad-err">
+      <p class="field-error" id="c-ad-err" data-error-for="ad"></p>
+    </div>
+    <div class="field">
+      <label for="c-eposta"><%= t.form.email %></label>
+      <input id="c-eposta" name="eposta" type="email" autocomplete="email" inputmode="email" required maxlength="254" aria-describedby="c-eposta-err">
+      <p class="field-error" id="c-eposta-err" data-error-for="eposta"></p>
+    </div>
+    <div class="field">
+      <label for="c-telefon"><%= t.form.phone %> <span class="optional"><%= t.form.optional %></span></label>
+      <input id="c-telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" placeholder="<%= t.form.phonePlaceholder %>" aria-describedby="c-telefon-err">
+      <p class="field-error" id="c-telefon-err" data-error-for="telefon"></p>
+    </div>
+    <div class="field">
+      <label for="c-konu"><%= t.form.topic %></label>
+      <select id="c-konu" name="konu" required aria-describedby="c-konu-err" data-topic>
+<% options.TOPICS.forEach(function (v, i) { -%>
+        <option value="<%= v %>"<% if (i === 0) { %> selected<% } %>><%= t.form.topics[v] %></option>
+<% }) -%>
+      </select>
+      <p class="field-error" id="c-konu-err" data-error-for="konu"></p>
+    </div>
+  </div>
+
+  <fieldset class="form-grid form-grid--3 reservation-fields" data-reservation>
+    <legend><%= t.form.stayLegend %> <span class="optional"><%= t.form.optional %></span></legend>
+    <div class="field">
+      <label for="c-giris"><%= t.form.checkin %></label>
+      <input id="c-giris" name="giris" type="date" min="<%= today %>" aria-describedby="c-giris-err" data-date-start>
+      <p class="field-error" id="c-giris-err" data-error-for="giris"></p>
+    </div>
+    <div class="field">
+      <label for="c-cikis"><%= t.form.checkout %></label>
+      <input id="c-cikis" name="cikis" type="date" min="<%= today %>" aria-describedby="c-cikis-err" data-date-end>
+      <p class="field-error" id="c-cikis-err" data-error-for="cikis"></p>
+    </div>
+    <div class="field">
+      <label for="c-kisi"><%= t.form.guests %></label>
+      <input id="c-kisi" name="kisi" type="number" inputmode="numeric" min="1" max="50" step="1" aria-describedby="c-kisi-err">
+      <p class="field-error" id="c-kisi-err" data-error-for="kisi"></p>
+    </div>
+  </fieldset>
+
+  <div class="field">
+    <label for="c-mesaj"><%= t.form.message %></label>
+    <textarea id="c-mesaj" name="mesaj" rows="6" required minlength="5" maxlength="3000" aria-describedby="c-mesaj-err"></textarea>
+    <p class="field-error" id="c-mesaj-err" data-error-for="mesaj"></p>
+  </div>
+
+  <div class="field field--check">
+    <input id="c-kvkk" name="kvkk" type="checkbox" required aria-describedby="c-kvkk-err">
+    <label for="c-kvkk"><%- L.rich(t.form.consentContact, { link: '<a href="' + L.href('privacy') + '" target="_blank" rel="noopener">' + L.rich(t.form.consentLink) + '</a>' }) %></label>
+    <p class="field-error" id="c-kvkk-err" data-error-for="kvkk"></p>
+  </div>
+
+  <div class="form-footer">
+    <button class="btn btn-primary" type="submit" data-submit><%= t.form.submitContact %></button>
+    <p class="form-note"><%= t.form.limitNote(env.dailyLimit) %></p>
+  </div>
+</form>

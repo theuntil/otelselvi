@@ -1,0 +1,42 @@
+# Otel Selvi — Dokploy (Docker Compose) için
+# Dokploy > Environment sekmesine yazdığınız değişkenler, bu dosyanın yanındaki
+# .env dosyasına kaydedilir ve env_file ile konteynere aktarılır.
+# Alan adını Dokploy > Domains sekmesinden ekleyin: Service = web, Port = 3000
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATA_DIR: /app/data
+    expose:
+      - "3000"
+    volumes:
+      - selvi-data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/healthz || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  selvi-data:

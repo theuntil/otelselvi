@@ -1,0 +1,17 @@
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="<%= t.ui.breadcrumb %>">
+      <ol>
+        <li><a href="<%= L.href('home') %>"><%= t.ui.home %></a></li>
+        <li aria-current="page"><%= page.name %></li>
+      </ol>
+    </nav>
+    <h1 class="display display--page"><%= heading %></h1>
+<% if (locals.lead) { -%>
+    <p class="lead"><%= lead %></p>
+<% } -%>
+<% if (locals.actions) { -%>
+    <div class="page-head-actions"><%- actions %></div>
+<% } -%>
+  </div>
+</section>

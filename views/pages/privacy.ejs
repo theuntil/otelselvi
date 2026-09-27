@@ -1,0 +1,16 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/page-head', { heading: t.privacy.h1, lead: t.privacy.lead }) %>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="prose prose--legal">
+<% t.privacy.sections.forEach(function (s) { -%>
+      <h2 class="h3"><%= s.title %></h2>
+      <p><%- L.rich(s.text, { legalName: '<strong>' + L.rich(site.legalName) + '</strong>', address: L.rich(site.address.full), email: '<a href="mailto:' + site.email + '">' + site.email + '</a>' }) %></p>
+<% }) -%>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

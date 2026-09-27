@@ -1,0 +1,49 @@
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <img class="footer-logo" src="/img/logo.webp" width="900" height="516" alt="Otel Selvi Karabük" loading="lazy">
+      <p class="footer-slogan"><%= t.footer.slogan %></p>
+    </div>
+
+    <div class="footer-col">
+      <h2 class="footer-title"><%= t.footer.pages %></h2>
+      <ul class="footer-links">
+<% ['home', 'rooms', 'corporate', 'about', 'guide', 'faq', 'contact'].forEach(function (k) { -%>
+        <li><a href="<%= L.href(k) %>"><%= t.pages[k].name %></a></li>
+<% }) -%>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h2 class="footer-title"><%= t.footer.contact %></h2>
+      <address class="footer-contact">
+        <a href="<%= L.maps.directions %>" rel="noopener" target="_blank"><%- icon('pin') %><span><%= site.address.street %><br><%= site.address.postalCode %> Karabük</span></a>
+<% site.phones.forEach(function (p) { -%>
+        <a href="tel:<%= p.e164 %>"><%- icon('phone') %><span><%= L.phoneText(p) %> <small><%= L.phoneLabel(p) %></small></span></a>
+<% }) -%>
+        <a href="mailto:<%= site.email %>"><%- icon('mail') %><span><%= site.email %></span></a>
+<% if (site.social.instagram) { -%>
+        <a href="<%= site.social.instagram.url %>" rel="noopener me" target="_blank"><%- icon('at') %><span>Instagram @<%= site.social.instagram.handle %></span></a>
+<% } -%>
+<% if (site.social.facebook) { -%>
+        <a href="<%= site.social.facebook %>" rel="noopener me" target="_blank"><%- icon('at') %><span>Facebook</span></a>
+<% } -%>
+      </address>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <p>© <%= year %> Otel Selvi, Karabük. <%= t.footer.rights %></p>
+    <p>
+      <a href="<%= L.href('privacy') %>"><%= t.pages.privacy.name %></a>
+<% L.alternates(page.key === '404' ? 'home' : page.key).filter(function (a) { return !a.current; }).forEach(function (a) { -%>
+      <a href="<%= a.path %>" hreflang="<%= a.htmlLang %>" lang="<%= a.htmlLang %>"><%= a.label %></a>
+<% }) -%>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

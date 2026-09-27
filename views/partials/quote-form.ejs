@@ -1,0 +1,87 @@
+<form class="form" id="teklif-formu" method="post" action="/form/kurumsal-teklif" novalidate data-form
+      data-messages="<%= JSON.stringify(clientMessages.quote) %>"
+      data-summary="<%= t.form.summary %>" data-network="<%= t.form.network %>" data-unexpected="<%= t.form.unexpected %>"
+      data-sending="<%= t.form.sending %>" data-success-title="<%= t.form.successTitle %>">
+  <input type="hidden" name="_token" value="<%= tokens.quote %>">
+  <input type="hidden" name="lang" value="<%= lang %>">
+  <div class="hp" aria-hidden="true">
+    <label for="q-website"><%= t.form.honeypot %></label>
+    <input type="text" id="q-website" name="website" tabindex="-1" autocomplete="off">
+  </div>
+
+  <%- include('form-status') %>
+
+  <fieldset class="form-grid">
+    <legend><%= t.form.companyLegend %></legend>
+    <div class="field field--wide">
+      <label for="q-firma"><%= t.form.company %></label>
+      <input id="q-firma" name="firma" type="text" autocomplete="organization" required minlength="2" maxlength="120" aria-describedby="q-firma-err">
+      <p class="field-error" id="q-firma-err" data-error-for="firma"></p>
+    </div>
+    <div class="field">
+      <label for="q-yetkili"><%= t.form.contactPerson %></label>
+      <input id="q-yetkili" name="yetkili" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="q-yetkili-err">
+      <p class="field-error" id="q-yetkili-err" data-error-for="yetkili"></p>
+    </div>
+    <div class="field">
+      <label for="q-telefon"><%= t.form.phone %></label>
+      <input id="q-telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required maxlength="25" placeholder="<%= t.form.phonePlaceholder %>" aria-describedby="q-telefon-err">
+      <p class="field-error" id="q-telefon-err" data-error-for="telefon"></p>
+    </div>
+    <div class="field field--wide">
+      <label for="q-eposta"><%= t.form.email %></label>
+      <input id="q-eposta" name="eposta" type="email" autocomplete="email" inputmode="email" required maxlength="254" aria-describedby="q-eposta-err">
+      <p class="field-error" id="q-eposta-err" data-error-for="eposta"></p>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-grid">
+    <legend><%= t.form.needsLegend %></legend>
+    <div class="field">
+      <label for="q-kisi"><%= t.form.guests %></label>
+      <input id="q-kisi" name="kisi" type="number" inputmode="numeric" min="1" max="500" step="1" required aria-describedby="q-kisi-err">
+      <p class="field-error" id="q-kisi-err" data-error-for="kisi"></p>
+    </div>
+    <div class="field">
+      <label for="q-giris"><%= t.form.checkin %></label>
+      <input id="q-giris" name="giris" type="date" min="<%= today %>" required aria-describedby="q-giris-err">
+      <p class="field-error" id="q-giris-err" data-error-for="giris"></p>
+    </div>
+    <div class="field">
+      <label for="q-sure"><%= t.form.duration %></label>
+      <select id="q-sure" name="sure" required aria-describedby="q-sure-err">
+        <option value="" selected disabled><%= t.form.select %></option>
+<% options.DURATIONS.forEach(function (v) { -%>
+        <option value="<%= v %>"><%= t.form.durations[v] %></option>
+<% }) -%>
+      </select>
+      <p class="field-error" id="q-sure-err" data-error-for="sure"></p>
+    </div>
+    <div class="field">
+      <label for="q-oda"><%= t.form.roomPref %></label>
+      <select id="q-oda" name="oda_tipi" required aria-describedby="q-oda-err">
+        <option value="" selected disabled><%= t.form.select %></option>
+<% options.ROOM_PREFS.forEach(function (v) { -%>
+        <option value="<%= v %>"><%= t.form.roomPrefs[v] %></option>
+<% }) -%>
+      </select>
+      <p class="field-error" id="q-oda-err" data-error-for="oda_tipi"></p>
+    </div>
+    <div class="field field--wide">
+      <label for="q-notlar"><%= t.form.notes %> <span class="optional"><%= t.form.optional %></span></label>
+      <textarea id="q-notlar" name="notlar" rows="4" maxlength="2000" placeholder="<%= t.form.notesPlaceholder %>" aria-describedby="q-notlar-err"></textarea>
+      <p class="field-error" id="q-notlar-err" data-error-for="notlar"></p>
+    </div>
+  </fieldset>
+
+  <div class="field field--check">
+    <input id="q-kvkk" name="kvkk" type="checkbox" required aria-describedby="q-kvkk-err">
+    <label for="q-kvkk"><%- L.rich(t.form.consentQuote, { link: '<a href="' + L.href('privacy') + '" target="_blank" rel="noopener">' + L.rich(t.form.consentLink) + '</a>' }) %></label>
+    <p class="field-error" id="q-kvkk-err" data-error-for="kvkk"></p>
+  </div>
+
+  <div class="form-footer">
+    <button class="btn btn-primary" type="submit" data-submit><%= t.form.submitQuote %></button>
+    <p class="form-note"><%= t.form.limitNote(env.dailyLimit) %></p>
+  </div>
+</form>

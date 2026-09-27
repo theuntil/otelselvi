@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/page-head', { heading: t.guide.h1, lead: t.guide.lead }) %>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <ul class="places" role="list">
+<% t.guide.places.forEach(function (g) { -%>
+      <li class="place">
+        <p class="place-kind"><%= g.kind %></p>
+        <h2 class="h3 place-name"><%= g.name %></h2>
+        <p class="place-text"><%= g.text %></p>
+      </li>
+<% }) -%>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--mist" aria-labelledby="neden-baslik">
+  <div class="wrap split">
+    <h2 id="neden-baslik" class="h2"><%= t.guide.whyTitle %></h2>
+    <div class="prose"><p><%= t.guide.why %></p></div>
+  </div>
+</section>
+
+<%- include('../partials/call-band') %>
+<%- include('../partials/footer') %>

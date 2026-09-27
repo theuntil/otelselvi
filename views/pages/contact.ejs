@@ -1,0 +1,20 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/page-head', { heading: t.contact.h1, lead: t.contact.lead }) %>
+
+<%- include('../partials/visit', { full: true }) %>
+
+<section class="section section--mist" aria-labelledby="form-baslik">
+  <div class="wrap form-layout">
+    <div class="form-aside">
+      <h2 id="form-baslik" class="h2"><%= t.contact.formTitle %></h2>
+      <p><%= t.contact.formText %></p>
+      <p><%- L.rich(t.contact.corporateHint, { link: '<a href="' + L.href('corporate') + '#teklif">' + L.rich(t.contact.corporateHintLink) + '</a>' }) %></p>
+    </div>
+    <div class="form-panel" id="form">
+      <%- include('../partials/contact-form') %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

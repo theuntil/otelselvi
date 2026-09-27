@@ -1,0 +1,12 @@
+<section class="call-band" aria-labelledby="call-title">
+  <div class="wrap call-inner">
+    <div class="call-text">
+      <h2 id="call-title" class="h3"><%= t.callBand.title %></h2>
+      <p><% if (site.reception24h) { %><%= t.callBand.text24 %> <% } %><%= t.callBand.text %></p>
+    </div>
+    <div class="call-actions">
+      <a class="btn btn-primary" href="tel:<%= site.phones[0].e164 %>"><%- icon('phone') %><span><%= L.phoneText(site.phones[0]) %></span></a>
+      <a class="btn btn-quiet" href="<%= L.maps.directions %>" rel="noopener" target="_blank"><%- icon('pin') %><span><%= t.ui.directions %></span></a>
+    </div>
+  </div>
+</section>

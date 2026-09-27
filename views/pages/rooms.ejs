@@ -1,0 +1,36 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/page-head', { heading: t.rooms.h1, lead: t.rooms.lead }) %>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <%- include('../partials/rooms-list') %>
+    <p class="note"><%- L.rich(t.rooms.note, { link: '<a href="' + L.href('corporate') + '#teklif">' + L.rich(t.rooms.noteLink) + '</a>' }) %></p>
+  </div>
+</section>
+
+<section class="section section--mist">
+  <div class="wrap two-col">
+    <div>
+      <h2 class="h3 block-title"><%= t.rooms.amenitiesTitle %></h2>
+      <ul class="checks" role="list">
+<% site.amenities.forEach(function (k) { -%>
+        <li><%= t.amenities[k] %></li>
+<% }) -%>
+      </ul>
+    </div>
+    <div>
+      <h2 class="h3 block-title"><%= t.rooms.termsTitle %></h2>
+      <dl class="terms">
+        <div><dt><%= t.rooms.terms.checkin.label %></dt><dd><%= t.rooms.terms.checkin.text(site.checkin) %></dd></div>
+        <div><dt><%= t.rooms.terms.checkout.label %></dt><dd><%= t.rooms.terms.checkout.text(site.checkout) %></dd></div>
+        <div><dt><%= t.rooms.terms.payment.label %></dt><dd><%= site.payment.map(function (k) { return t.payment[k]; }).join(', ') %></dd></div>
+        <div><dt><%= t.rooms.terms.invoice.label %></dt><dd><%= t.rooms.terms.invoice.text %></dd></div>
+        <div><dt><%= t.rooms.terms.id.label %></dt><dd><%= t.rooms.terms.id.text %></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/call-band') %>
+<%- include('../partials/footer') %>

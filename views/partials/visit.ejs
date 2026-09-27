@@ -1,0 +1,80 @@
+<%
+  var full = !!locals.full;
+  var mapsKey = env.mapsKey;
+  var plannerData = {
+    key: mapsKey || '',
+    mapId: env.mapsMapId,
+    lang: t.mapsHl,
+    intl: t.intl,
+    hotel: { lat: site.geo ? site.geo.lat : null, lng: site.geo ? site.geo.lng : null, name: site.name, query: site.maps.query },
+    text: { loading: t.planner.loading, notFound: t.planner.notFound, error: t.planner.error, openRoute: t.planner.openRoute, leadNoKey: t.planner.leadNoKey, modes: t.planner.modes }
+  };
+-%>
+<section class="section visit" id="konum" aria-labelledby="visit-title">
+  <div class="wrap">
+    <div class="visit-head">
+      <div>
+        <h2 id="visit-title" class="h2"><%= t.location.title %></h2>
+        <p><%= t.location.lead %></p>
+        <address class="visit-address"><%- icon('pin') %><span><%= site.address.street %>, <%= site.address.postalCode %> Karabük Merkez / Karabük</span></address>
+      </div>
+      <a class="btn btn-primary" href="<%= L.maps.directions %>" rel="noopener" target="_blank"><%- icon('pin') %><span><%= t.ui.directions %></span></a>
+    </div>
+
+    <div class="visit-grid" data-planner="<%= JSON.stringify(plannerData) %>">
+      <div class="visit-map">
+        <iframe src="<%= L.maps.embed %>" title="<%= t.ui.mapTitle %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen data-map-fallback></iframe>
+        <div class="map-canvas" data-map-canvas hidden></div>
+      </div>
+
+      <div class="planner">
+        <h3 class="planner-title"><%= t.planner.title %></h3>
+        <p class="planner-lead" data-planner-lead><%= mapsKey ? t.planner.lead : t.planner.leadNoKey %></p>
+
+        <form action="https://www.google.com/maps/dir/" method="get" target="_blank" rel="noopener" data-planner-form>
+          <input type="hidden" name="api" value="1">
+          <input type="hidden" name="origin" value="<%= site.maps.query %>">
+          <fieldset>
+            <legend><%= t.planner.modesLabel %></legend>
+            <div class="modes">
+<% ['DRIVING', 'WALKING', 'TRANSIT'].forEach(function (m, i) { -%>
+              <input type="radio" id="mode-<%= m.toLowerCase() %>" name="travelmode" value="<%= m.toLowerCase() %>"<% if (i === 0) { %> checked<% } %>>
+              <label for="mode-<%= m.toLowerCase() %>"><%= t.planner.modes[m] %></label>
+<% }) -%>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><%= t.planner.presetsLabel %></legend>
+            <div class="chips">
+<% site.maps.routePresets.forEach(function (p) { -%>
+              <a class="chip" href="<%= L.maps.fromHotel(p.query) %>" rel="noopener" target="_blank" data-dest="<%= p.query %>" data-label="<%= t.planner.presets[p.key] %>"><%= t.planner.presets[p.key] %></a>
+<% }) -%>
+            </div>
+          </fieldset>
+
+          <label class="visually-hidden" for="planner-dest"><%= t.planner.inputLabel %></label>
+          <div class="planner-form">
+            <input id="planner-dest" name="destination" type="text" required maxlength="120" autocomplete="off" placeholder="<%= t.planner.placeholder %>">
+            <button class="btn btn-primary btn-sm" type="submit"><%= t.planner.submit %></button>
+          </div>
+        </form>
+
+        <p class="planner-status" role="status" aria-live="polite" data-planner-status></p>
+        <ul class="planner-results" role="list" data-planner-results></ul>
+
+<% if (full) { -%>
+        <dl class="visit-list">
+<%   site.phones.forEach(function (p) { -%>
+          <div><dt><%= L.phoneLabel(p) %></dt><dd><a href="tel:<%= p.e164 %>"><%= L.phoneText(p) %></a><% if (p.whatsapp && L.whatsappHref) { %><br><a class="visit-wa" href="<%= L.whatsappHref %>" rel="noopener" target="_blank"><%= t.contact.whatsappWrite %></a><% } %></dd></div>
+<%   }) -%>
+          <div><dt><%= t.ui.email %></dt><dd><a href="mailto:<%= site.email %>"><%= site.email %></a></dd></div>
+<%   if (site.social.instagram) { -%>
+          <div><dt>Instagram</dt><dd><a href="<%= site.social.instagram.url %>" rel="noopener me" target="_blank">@<%= site.social.instagram.handle %></a></dd></div>
+<%   } -%>
+        </dl>
+<% } -%>
+      </div>
+    </div>
+  </div>
+</section>

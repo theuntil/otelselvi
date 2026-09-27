@@ -1,0 +1,14 @@
+<ul class="room-tiles" role="list">
+<% site.rooms.forEach(function (room) { var r = t.roomTypes[room.key]; -%>
+  <li class="room-tile">
+    <a href="<%= L.href('rooms') %>#<%= room.key %>">
+      <%- include('arch', { variant: 'room', photoName: room.photo, alt: r.name, capacity: room.capacity }) %>
+      <span class="room-tile-text">
+        <span class="room-tile-name"><%= r.name %></span>
+        <span class="room-tile-meta"><%= t.rooms.capacity(room.capacity) %></span>
+        <span class="room-tile-bed"><%= r.bed %></span>
+      </span>
+    </a>
+  </li>
+<% }) -%>
+</ul>

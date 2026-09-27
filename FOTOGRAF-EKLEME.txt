@@ -1,0 +1,19 @@
+FOTOĞRAF EKLEME
+===============
+public/img/foto/ klasörüne aşağıdaki isimlerle fotoğraf koyduğunuzda sitede otomatik görünür.
+Uzantı .jpg, .jpeg, .png, .webp veya .avif olabilir. Yeniden deploy etmeniz yeterli.
+
+hero.jpg            Ana sayfadaki büyük görsel (en az 1200x1500 px; dikey veya kare iyi durur,
+                    mobilde yatay kırpılır — önemli kısım fotoğrafın ortasında olsun)
+hakkimizda.jpg      Hakkımızda sayfasındaki kemer çerçeve (dikey)
+oda-tek.jpg         Tek kişilik oda
+oda-cift.jpg        Çift kişilik oda
+oda-iki-yatakli.jpg İki yataklı oda
+oda-uc-kisilik.jpg  Üç kişilik oda
+
+galeri/             public/img/foto/galeri/ klasörüne koyduğunuz tüm fotoğraflar ana sayfada "Otelden kareler"
+                    bölümünde gösterilir. Dosya adı fotoğraf açıklaması olur:
+                    örn. 01-lobi-alani.jpg  ->  "Otel Selvi Karabük — Lobi alani"
+
+İpucu: Fotoğrafları yüklemeden önce 1600 px genişliğe küçültüp .webp veya %80 kaliteli
+.jpg olarak kaydedin; site hızlı açılır, Google hız puanı yükselir.

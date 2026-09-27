@@ -1,0 +1,17 @@
+<%
+  var ph = photo(locals.photoName);
+  var variant = locals.variant || 'tall';
+  var eager = !!locals.eager;
+-%>
+<figure class="arch arch--<%= variant %>">
+  <svg class="arch-line" viewBox="0 0 500 700" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M1.5 700V250a248.5 248.5 0 0 1 497 0V700"/></svg>
+  <div class="arch-frame<%= ph ? '' : ' arch-frame--empty' %>">
+<% if (ph) { -%>
+    <img src="<%= ph.src %>" alt="<%= locals.alt || 'Otel Selvi Karabük' %>" <% if (eager) { %>fetchpriority="high"<% } else { %>loading="lazy"<% } %> decoding="async">
+<% } else if (variant === 'room') { -%>
+    <span class="arch-count" aria-hidden="true"><%= locals.capacity %></span>
+<% } else { -%>
+    <img class="arch-emblem" src="/img/logo-mark-lg.webp" width="480" height="520" alt="" <% if (eager) { %>fetchpriority="high"<% } else { %>loading="lazy"<% } %>>
+<% } -%>
+  </div>
+</figure>

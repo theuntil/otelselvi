@@ -1,0 +1,28 @@
+<ul class="rooms" role="list">
+<% site.rooms.forEach(function (room) { var r = t.roomTypes[room.key]; -%>
+  <li class="room" id="<%= room.key %>">
+    <div class="room-media">
+      <%- include('arch', { variant: 'room', photoName: room.photo, alt: r.name, capacity: room.capacity }) %>
+    </div>
+    <div class="room-body">
+      <h2 class="room-name"><%= r.name %></h2>
+      <p class="room-meta"><%= t.rooms.capacity(room.capacity) %></p>
+      <p class="room-bed"><%= r.bed %></p>
+      <p class="room-summary"><%= r.summary %></p>
+      <ul class="room-features" role="list">
+<% r.features.forEach(function (f) { -%>
+        <li><%= f %></li>
+<% }) -%>
+      </ul>
+    </div>
+    <div class="room-price">
+<% if (Number.isFinite(room.priceFrom) && room.priceFrom > 0) { -%>
+      <span class="price-unit"><%= t.rooms.priceFrom %></span>
+      <span class="price-amount"><%= L.price(room.priceFrom) %></span>
+<% } else { -%>
+      <span class="price-unit"><%= t.rooms.priceCall %></span>
+<% } -%>
+    </div>
+  </li>
+<% }) -%>
+</ul>

@@ -1,0 +1,66 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/page-head', {
+  heading: t.corporate.h1,
+  lead: t.corporate.lead,
+  actions: '<a class="btn btn-primary" href="#teklif">' + L.rich(t.corporate.toForm) + '</a><a class="btn btn-quiet" href="tel:' + site.phones[0].e164 + '">' + icon('phone') + '<span>' + L.rich(L.phoneText(site.phones[0])) + '</span></a>'
+}) %>
+
+<section class="section" aria-labelledby="kimler-baslik">
+  <div class="wrap">
+    <div class="section-head"><h2 id="kimler-baslik" class="h2"><%= t.corporate.segmentsTitle %></h2></div>
+    <ul class="segments" role="list">
+<% t.corporate.segments.forEach(function (s) { -%>
+      <li class="segment">
+        <h3 class="segment-name"><%= s.name %></h3>
+        <p><%= s.text %></p>
+      </li>
+<% }) -%>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--mist" aria-labelledby="sunulan-baslik">
+  <div class="wrap two-col">
+    <div>
+      <h2 id="sunulan-baslik" class="h3 block-title"><%= t.corporate.offerTitle %></h2>
+      <ul class="checks" role="list">
+<% t.corporate.offers.forEach(function (o) { -%>
+        <li><strong><%= o.strong %></strong> <%= o.text %></li>
+<% }) -%>
+      </ul>
+    </div>
+    <div>
+      <h2 class="h3 block-title"><%= t.corporate.processTitle %></h2>
+      <%- include('../partials/steps') %>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="teklif" aria-labelledby="teklif-baslik">
+  <div class="wrap form-layout">
+    <div class="form-aside">
+      <h2 id="teklif-baslik" class="h2"><%= t.corporate.formTitle %></h2>
+      <p><%= t.corporate.formLead %></p>
+      <div class="aside-contact">
+        <p><%= t.corporate.urgent %></p>
+<% site.phones.forEach(function (p) { -%>
+        <a href="tel:<%= p.e164 %>"><%- icon('phone') %><span><%= L.phoneText(p) %></span></a>
+<% }) -%>
+        <a href="mailto:<%= site.email %>"><%- icon('mail') %><span><%= site.email %></span></a>
+      </div>
+    </div>
+    <div class="form-panel" id="form">
+      <%- include('../partials/quote-form') %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--mist" aria-labelledby="ksss-baslik">
+  <div class="wrap split">
+    <h2 id="ksss-baslik" class="h2"><%= t.corporate.faqTitle %></h2>
+    <%- include('../partials/faq-list', { items: t.corporate.faq }) %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

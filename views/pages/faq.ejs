@@ -1,0 +1,23 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/page-head', { heading: t.faq.h1, lead: t.faq.lead }) %>
+
+<section class="section section--tight" aria-labelledby="genel-baslik">
+  <div class="wrap split">
+    <h2 id="genel-baslik" class="h2"><%= t.faq.generalTitle %></h2>
+    <%- include('../partials/faq-list', { items: t.faq.items, openFirst: true }) %>
+  </div>
+</section>
+
+<section class="section section--mist" aria-labelledby="kurumsal-sss-baslik">
+  <div class="wrap split">
+    <div>
+      <h2 id="kurumsal-sss-baslik" class="h2"><%= t.faq.corporateTitle %></h2>
+      <p class="split-note"><a class="text-link" href="<%= L.href('corporate') %>#teklif"><%= t.ui.quote %></a></p>
+    </div>
+    <%- include('../partials/faq-list', { items: t.corporate.faq }) %>
+  </div>
+</section>
+
+<%- include('../partials/call-band') %>
+<%- include('../partials/footer') %>

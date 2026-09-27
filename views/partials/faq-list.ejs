@@ -1,0 +1,8 @@
+<div class="faq">
+<% items.forEach(function (f, i) { -%>
+  <details class="faq-item"<% if (locals.openFirst && i === 0) { %> open<% } %>>
+    <summary><span class="faq-q"><%= f.q %></span><span class="faq-icon" aria-hidden="true"></span></summary>
+    <div class="faq-a"><p><%= f.a %></p></div>
+  </details>
+<% }) -%>
+</div>

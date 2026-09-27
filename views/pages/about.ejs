@@ -1,0 +1,45 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/page-head', { heading: t.about.h1, lead: t.about.lead(L.since) }) %>
+
+<section class="section">
+  <div class="wrap story-grid">
+    <div class="prose">
+      <h2 class="h2"><%= t.about.storyTitle %></h2>
+<% t.about.story.forEach(function (p) { -%>
+      <p><%= p %></p>
+<% }) -%>
+    </div>
+    <div class="story-visual">
+      <%- include('../partials/arch', { variant: 'tall', photoName: 'hakkimizda', alt: 'Otel Selvi Karabük' }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section--mist" aria-labelledby="isim-baslik">
+  <div class="wrap split">
+    <h2 id="isim-baslik" class="h2"><%= t.about.nameTitle %></h2>
+    <div class="prose">
+<% t.about.name.forEach(function (p) { -%>
+      <p><%= p %></p>
+<% }) -%>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="ilke-baslik">
+  <div class="wrap">
+    <div class="section-head"><h2 id="ilke-baslik" class="h2"><%= t.about.principlesTitle %></h2></div>
+    <div class="principles">
+<% t.about.principles.forEach(function (p) { -%>
+      <div class="principle">
+        <h3 class="h3"><%= p.title %></h3>
+        <p><%= p.text %></p>
+      </div>
+<% }) -%>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/call-band') %>
+<%- include('../partials/footer') %>

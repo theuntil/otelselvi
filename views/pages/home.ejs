@@ -1,0 +1,72 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 class="display"><%= t.home.h1 %></h1>
+      <p class="lead"><%= t.home.lead(L.since) %></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="tel:<%= site.phones[0].e164 %>"><%- icon('phone') %><span><%= t.home.reserve %>: <%= L.phoneText(site.phones[0]) %></span></a>
+        <a class="btn btn-quiet" href="<%= L.maps.directions %>" rel="noopener" target="_blank"><%- icon('pin') %><span><%= t.ui.directions %></span></a>
+      </div>
+      <dl class="hero-facts">
+        <div><dt><%= t.home.facts.address %></dt><dd><%= site.address.streetShort %>, Karabük</dd></div>
+        <div><dt><%= t.home.facts.reception %></dt><dd><%= site.reception24h ? t.home.facts.reception24 : t.home.facts.receptionDaily %></dd></div>
+        <div><dt><%= t.home.facts.times %></dt><dd><%= site.checkin %> / <%= site.checkout %></dd></div>
+      </dl>
+    </div>
+    <div class="hero-visual">
+      <%- include('../partials/arch', { variant: 'hero', photoName: 'hero', alt: 'Otel Selvi Karabük', eager: true }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="odalar-baslik">
+  <div class="wrap">
+    <div class="section-head section-head--row">
+      <div>
+        <h2 id="odalar-baslik" class="h2"><%= t.home.roomsTitle %></h2>
+        <p><%= t.home.roomsLead %></p>
+      </div>
+      <a class="text-link" href="<%= L.href('rooms') %>"><%= t.home.roomsLink %></a>
+    </div>
+    <%- include('../partials/room-tiles') %>
+  </div>
+</section>
+
+<section class="section section--mist" aria-labelledby="kurumsal-baslik">
+  <div class="wrap corporate-band">
+    <div>
+      <h2 id="kurumsal-baslik" class="h2"><%= t.home.corporateTitle %></h2>
+      <p class="lead lead--sm"><%= t.home.corporateLead %></p>
+    </div>
+    <div>
+      <ul class="checks" role="list">
+<% t.home.corporatePoints.forEach(function (p) { -%>
+        <li><%= p %></li>
+<% }) -%>
+      </ul>
+      <div class="section-actions">
+        <a class="btn btn-primary" href="<%= L.href('corporate') %>#teklif"><%= t.ui.quote %></a>
+        <a class="text-link" href="<%= L.href('corporate') %>"><%= t.home.corporateLink %></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% if (gallery.length) { -%>
+<section class="section" aria-labelledby="galeri-baslik">
+  <div class="wrap">
+    <div class="section-head"><h2 id="galeri-baslik" class="h2"><%= t.home.galleryTitle %></h2></div>
+    <ul class="gallery" role="list">
+<% gallery.forEach(function (g) { -%>
+      <li><img src="<%= g.src %>" alt="<%= g.alt %>" loading="lazy" decoding="async"></li>
+<% }) -%>
+    </ul>
+  </div>
+</section>
+<% } -%>
+
+<%- include('../partials/visit', { full: false }) %>
+<%- include('../partials/footer') %>

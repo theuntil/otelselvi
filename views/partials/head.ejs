@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="<%= t.htmlLang %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title><%= page.title %></title>
+  <meta name="description" content="<%= page.description %>">
+<% if (page.noindex) { -%>
+  <meta name="robots" content="noindex, follow">
+<% } else { -%>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="<%= canonical %>">
+<%   L.alternates(page.key).forEach(function (a) { -%>
+  <link rel="alternate" hreflang="<%= a.htmlLang %>" href="<%= a.url %>">
+<%   }) -%>
+  <link rel="alternate" hreflang="x-default" href="<%= L.alternates(page.key)[0].url %>">
+<% } -%>
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="geo.region" content="TR-78">
+  <meta name="geo.placename" content="Karabük">
+<% if (site.geo) { -%>
+  <meta name="geo.position" content="<%= site.geo.lat %>;<%= site.geo.lng %>">
+  <meta name="ICBM" content="<%= site.geo.lat %>, <%= site.geo.lng %>">
+<% } -%>
+<% if (env.verification.google) { -%>
+  <meta name="google-site-verification" content="<%= env.verification.google %>">
+<% } -%>
+<% if (env.verification.bing) { -%>
+  <meta name="msvalidate.01" content="<%= env.verification.bing %>">
+<% } -%>
+<% if (env.verification.yandex) { -%>
+  <meta name="yandex-verification" content="<%= env.verification.yandex %>">
+<% } -%>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Otel Selvi Karabük">
+  <meta property="og:locale" content="<%= t.ogLocale %>">
+<% if (!page.noindex) { L.alternates(page.key).filter(function (a) { return !a.current; }).forEach(function (a) { -%>
+  <meta property="og:locale:alternate" content="<%= LOCALE_OG[a.lang] %>">
+<% }) } -%>
+  <meta property="og:title" content="<%= page.title %>">
+  <meta property="og:description" content="<%= page.description %>">
+  <meta property="og:url" content="<%= canonical %>">
+  <meta property="og:image" content="<%= env.siteUrl %>/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="<%= t.seo.ogImageAlt %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= page.title %>">
+  <meta name="twitter:description" content="<%= page.description %>">
+  <meta name="twitter:image" content="<%= env.siteUrl %>/img/og-image.jpg">
+<% if (lang === 'ru') { -%>
+  <link rel="preload" href="/fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jost-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<% } else { -%>
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<% } -%>
+  <link rel="stylesheet" href="<%= asset('/css/style.css') %>">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+<% if (jsonLd) { -%>
+  <script type="application/ld+json"><%- jsonLd %></script>
+<% } -%>
+  <script src="<%= asset('/js/main.js') %>" defer></script>
+<% if (env.mapsKey && (page.key === 'home' || page.key === 'contact')) { -%>
+  <link rel="preconnect" href="https://maps.googleapis.com">
+  <script src="<%= asset('/js/route-planner.js') %>" defer></script>
+<% } -%>
+</head>
